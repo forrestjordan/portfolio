@@ -1,105 +1,143 @@
 /* ─────────────────────────────────────────────
    FORREST SHIN — Global Design Tokens & Base
+   Gradient system: perimeter-only, Figma-matched
    ───────────────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Karla:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap');
 
-/* ── Tokens ── */
 :root {
-  /* Color palette */
+  /* ── Core palette ── */
   --navy:          #1E2A4A;
   --navy-deep:     #16213A;
   --navy-mid:      #2A3A5C;
   --slate:         #3D4F6B;
-  --slate-mid:     #2E3E60;
   --steel:         #6B7FA3;
   --mist:          #B0BACF;
   --frost:         #DCE4F0;
-  --paper:         #F6F5F3;
+  --paper:         #F7F6F2;
   --off-white:     #F0EFF0;
   --white:         #FFFFFF;
   --lavender:      #F0EEF8;
   --azure:         #EBF0FA;
   --warm:          #C4A882;
-  --warm-light:    #F5EDE0;
   --accent-blue:   #2E4B8A;
 
-  /* Text */
+  /* ── Figma-matched perimeter gradient colors ──
+     Sage/olive-green along edges, clean center.
+     Pulled directly from your reference image.   */
+  --edge-sage:     rgba(162, 179, 140, 0.55);   /* warm sage green */
+  --edge-sage-mid: rgba(180, 196, 158, 0.35);   /* mid sage        */
+  --edge-olive:    rgba(140, 158, 115, 0.45);   /* deeper olive    */
+  --edge-cream:    rgba(220, 215, 195, 0.30);   /* warm cream edge */
+  --center-clear:  rgba(247, 246, 242, 0.00);   /* fully clear     */
+
+  /* ── Text ── */
   --text-primary:   #1A1A2E;
   --text-secondary: #5A5A72;
   --text-muted:     #9A9AAE;
   --text-on-dark:   #F0EDE6;
-  --text-dim-dark:  rgba(240, 237, 230, 0.55);
+  --text-dim-dark:  rgba(240, 237, 230, 0.50);
 
-  /* Borders */
+  /* ── Borders ── */
   --border:         #E2E1E6;
   --border-strong:  #B0BACF;
-  --border-on-dark: rgba(176, 186, 207, 0.2);
+  --border-on-dark: rgba(176, 186, 207, 0.18);
 
-  /* Gradients */
-  --grad-hero:       linear-gradient(160deg, #1E2A4A 0%, #2E3E60 35%, #3D4F6B 65%, #5C6F8C 100%);
-  --grad-transition: linear-gradient(180deg, #3D4F6B 0%, #6B7FA3 30%, #B0BACF 60%, #DCE4F0 80%, #F6F5F3 100%);
-  --grad-section:    linear-gradient(180deg, #F6F5F3 0%, #F0EEF8 40%, #EBF0FA 70%, #F6F5F3 100%);
-  --grad-footer:     linear-gradient(160deg, #2A3A5C 0%, #1E2A4A 50%, #16213A 100%);
-  --grad-card:       linear-gradient(180deg, #FFFFFF 0%, #F6F5F3 100%);
-  --grad-selection:  linear-gradient(135deg, #EBF0FA 0%, #DCE4F0 50%, #F0EEF8 100%);
-  --grad-cta:        linear-gradient(135deg, #1E2A4A 0%, #2E4B8A 50%, #6B7FA3 100%);
-  --grad-section-border: linear-gradient(90deg, rgba(30,42,74,0.08) 0%, transparent 100%);
+  /* ─────────────────────────────────────────
+     GRADIENT SYSTEM
+     Philosophy: gradients run along the page
+     perimeter only — corners & edges bleed in,
+     center stays clean. Like your Figma ref.
+     ───────────────────────────────────────── */
 
-  /* Typography */
+  /* Page-level perimeter wash (applied to body) */
+  --grad-perimeter:
+    radial-gradient(ellipse 80% 40% at 0% 0%,   var(--edge-sage)     0%, var(--center-clear) 100%),
+    radial-gradient(ellipse 80% 40% at 100% 0%,  var(--edge-olive)    0%, var(--center-clear) 100%),
+    radial-gradient(ellipse 80% 40% at 0% 100%,  var(--edge-sage-mid) 0%, var(--center-clear) 100%),
+    radial-gradient(ellipse 80% 40% at 100% 100%,var(--edge-cream)    0%, var(--center-clear) 100%);
+
+  /* Subtle top-edge bleed — for hero headers */
+  --grad-top-edge:
+    radial-gradient(ellipse 100% 60% at 50% 0%,
+      rgba(162, 179, 140, 0.40) 0%,
+      rgba(162, 179, 140, 0.15) 40%,
+      transparent 70%);
+
+  /* Bottom-edge bleed — before footer */
+  --grad-bottom-edge:
+    radial-gradient(ellipse 100% 60% at 50% 100%,
+      rgba(140, 158, 115, 0.35) 0%,
+      rgba(162, 179, 140, 0.12) 50%,
+      transparent 75%);
+
+  /* Left-edge accent — section dividers */
+  --grad-left-edge:
+    linear-gradient(90deg,
+      rgba(162, 179, 140, 0.20) 0%,
+      rgba(162, 179, 140, 0.06) 40%,
+      transparent 100%);
+
+  /* Right-edge accent */
+  --grad-right-edge:
+    linear-gradient(270deg,
+      rgba(162, 179, 140, 0.15) 0%,
+      transparent 60%);
+
+  /* Card surface — very subtle warm lift */
+  --grad-card:
+    linear-gradient(160deg,
+      rgba(255,255,255,1.0) 0%,
+      rgba(247,246,242,1.0) 100%);
+
+  /* Selection/active tint */
+  --grad-selection:
+    linear-gradient(135deg, #EBF0FA 0%, #DCE4F0 50%, #F0EEF8 100%);
+
+  /* CTA button */
+  --grad-cta:
+    linear-gradient(135deg, #1E2A4A 0%, #2E4B8A 50%, #6B7FA3 100%);
+
+  /* Dark page headers — nav hero zone */
+  --grad-hero:
+    linear-gradient(160deg, #1E2A4A 0%, #2E3E60 40%, #3D4F6B 100%);
+
+  /* Footer */
+  --grad-footer:
+    linear-gradient(160deg, #2A3A5C 0%, #1E2A4A 55%, #16213A 100%);
+
+  /* Section-border left stripe */
+  --grad-section-border:
+    linear-gradient(180deg, transparent 0%, rgba(162,179,140,0.25) 50%, transparent 100%);
+
+  /* ── Typography ── */
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans:  'Karla', system-ui, sans-serif;
   --font-mono:  'JetBrains Mono', 'Courier New', monospace;
 
-  /* Spacing scale */
-  --space-1:   4px;
-  --space-2:   8px;
-  --space-3:   12px;
-  --space-4:   16px;
-  --space-5:   24px;
-  --space-6:   32px;
-  --space-7:   48px;
-  --space-8:   64px;
-  --space-9:   80px;
-  --space-10:  128px;
+  /* ── Spacing ── */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;
+  --space-4: 16px;  --space-5: 24px;  --space-6: 32px;
+  --space-7: 48px;  --space-8: 64px;  --space-9: 80px;
+  --space-10: 128px;
 
-  /* Radii */
-  --radius-sm:  4px;
-  --radius-md:  8px;
-  --radius-lg:  12px;
-  --radius-xl:  16px;
-  --radius-2xl: 24px;
+  /* ── Radii ── */
+  --radius-sm: 4px;  --radius-md: 8px;   --radius-lg: 12px;
+  --radius-xl: 16px; --radius-2xl: 24px; --radius-pill: 999px;
 
-  /* Physics spring presets (used in Framer Motion) */
-  --spring-gentle:  "type:spring,stiffness:120,damping:20,mass:1";
-  --spring-snappy:  "type:spring,stiffness:280,damping:22,mass:0.8";
-  --spring-bouncy:  "type:spring,stiffness:350,damping:18,mass:0.9";
-  --spring-heavy:   "type:spring,stiffness:80,damping:25,mass:1.5";
-  --spring-elastic: "type:spring,stiffness:400,damping:15,mass:0.7";
+  /* ── Z-layers ── */
+  --z-base: 0; --z-raised: 10; --z-nav: 100; --z-overlay: 200;
 
-  /* Z-layers */
-  --z-base:    0;
-  --z-raised:  10;
-  --z-nav:     100;
-  --z-overlay: 200;
-  --z-modal:   300;
-
-  /* Transitions */
-  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  /* ── Easing ── */
+  --ease-standard:   cubic-bezier(0.2, 0, 0, 1);
   --ease-decelerate: cubic-bezier(0, 0, 0, 1);
   --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
-  --dur-fast:   120ms;
-  --dur-mid:    220ms;
-  --dur-slow:   400ms;
-  --dur-reveal: 600ms;
+  --dur-fast: 120ms; --dur-mid: 220ms;
+  --dur-slow: 400ms; --dur-reveal: 600ms;
 }
 
 /* ── Reset ── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   scroll-behavior: smooth;
@@ -107,29 +145,24 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Body carries the perimeter gradient as a fixed layer */
 body {
   font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 300;
   line-height: 1.7;
   color: var(--text-primary);
-  background: var(--paper);
+  background-color: var(--paper);
+  background-image: var(--grad-perimeter);
+  background-attachment: fixed;
+  background-size: 100% 100%;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 img, video { max-width: 100%; display: block; }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
-}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
 
 /* ── Typography utilities ── */
 .t-display {
@@ -140,11 +173,7 @@ button {
   line-height: 1.0;
   color: var(--text-on-dark);
 }
-
-.t-display em {
-  font-style: italic;
-  color: var(--mist);
-}
+.t-display em { font-style: italic; color: var(--mist); }
 
 .t-heading {
   font-family: var(--font-serif);
@@ -180,7 +209,7 @@ button {
   line-height: 1.75;
 }
 
-/* ── Layout utilities ── */
+/* ── Layout ── */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -192,13 +221,10 @@ button {
   .container { padding: 0 var(--space-4); }
 }
 
-/* ── Selection state ── */
-::selection {
-  background: var(--azure);
-  color: var(--navy);
-}
+/* ── Selection ── */
+::selection { background: var(--azure); color: var(--navy); }
 
-/* ── Focus visible ── */
+/* ── Focus ── */
 :focus-visible {
   outline: 2px solid var(--accent-blue);
   outline-offset: 2px;
@@ -207,6 +233,6 @@ button {
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--mist); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--steel); }

@@ -5,8 +5,8 @@ const variants = {
   light:      styles.varLight,
   dark:       styles.varDark,
   creative:   styles.varCreative,
-  transition: styles.varTransition,
   azure:      styles.varAzure,
+  transition: styles.varTransition,
 }
 
 export default function SectionWrapper({
@@ -26,8 +26,10 @@ export default function SectionWrapper({
         className,
       ].join(' ')}
     >
-      {/* Left-edge gradient border */}
-      <div className={styles.leftBorder} />
+      {/* Left edge accent — matches Figma perimeter-only style */}
+      <div className={styles.leftEdge} aria-hidden="true" />
+      <div className={styles.rightEdge} aria-hidden="true" />
+
       <div className={styles.inner}>
         {children}
       </div>

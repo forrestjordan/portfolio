@@ -8,67 +8,94 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 96px 48px;
+  position: relative;
+  z-index: 1;
 }
 
-.noPad .inner {
-  padding: 0;
-}
+.noPad .inner { padding: 0; }
 
-/* Left-edge gradient border — replaces solid dividers */
-.leftBorder {
+/* ── Perimeter edge accents ──
+   These replace "section background gradients".
+   Thin sage-tinted strips hug only the left/right
+   edges, matching the Figma reference exactly. */
+
+.leftEdge {
   position: absolute;
+  top: 0;
   left: 0;
-  top: 10%;
-  bottom: 10%;
-  width: 3px;
-  background: var(--grad-section-border);
-  border-radius: 0 2px 2px 0;
+  bottom: 0;
+  width: 180px;
+  background: var(--grad-left-edge);
   pointer-events: none;
+  z-index: 0;
 }
 
-/* ── Gradient variants ── */
+.rightEdge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 120px;
+  background: var(--grad-right-edge);
+  pointer-events: none;
+  z-index: 0;
+}
 
-/* Default: floats Paper → Lavender → Azure → Paper */
+/* ── Section variants — clean backgrounds only ── */
+
+/* Default: paper white, edge accents visible */
 .varDefault {
-  background: var(--grad-section);
+  background-color: var(--paper);
 }
 
-/* Light: clean white surface */
+/* Light: pure white card-like sections */
 .varLight {
-  background: linear-gradient(180deg, var(--white) 0%, var(--paper) 100%);
+  background-color: var(--white);
 }
 
-/* Dark: matches footer/hero depth */
+/* Dark: hero/dark sections */
 .varDark {
   background: var(--grad-hero);
 }
-.varDark .leftBorder {
-  background: linear-gradient(90deg, rgba(176,186,207,0.15) 0%, transparent 100%);
+.varDark .leftEdge,
+.varDark .rightEdge {
+  /* On dark sections edges are a lighter sage to contrast */
+  background: linear-gradient(
+    90deg,
+    rgba(176, 196, 148, 0.12) 0%,
+    transparent 100%
+  );
 }
 
-/* Creative: lavender-forward for creative pages */
+/* Creative: faint lavender base, edge accents still sage */
 .varCreative {
-  background: linear-gradient(180deg, var(--lavender) 0%, var(--frost) 40%, var(--azure) 70%, var(--lavender) 100%);
+  background-color: #F8F7FB;
 }
 
-/* Transition: used between dark hero and light body */
-.varTransition {
-  background: var(--grad-transition);
-  height: 120px;
-  padding: 0;
-}
-.varTransition .inner {
-  padding: 0;
-  max-width: none;
-}
-
-/* Azure: cool-tinted section */
+/* Azure: cool-tinted reading sections */
 .varAzure {
-  background: linear-gradient(180deg, var(--azure) 0%, var(--frost) 50%, var(--paper) 100%);
+  background-color: #F4F6FB;
 }
+
+/* Transition strip between dark hero and light body */
+.varTransition {
+  background: linear-gradient(
+    180deg,
+    #3D4F6B 0%,
+    #6B7FA3 22%,
+    #B0BACF 45%,
+    #DCE4F0 65%,
+    var(--paper) 100%
+  );
+  height: 100px;
+  padding: 0;
+}
+.varTransition .inner    { display: none; }
+.varTransition .leftEdge,
+.varTransition .rightEdge { display: none; }
 
 @media (max-width: 768px) {
-  .inner {
-    padding: 64px 24px;
-  }
+  .inner     { padding: 64px 24px; }
+  .leftEdge  { width: 80px; }
+  .rightEdge { width: 60px; }
 }

@@ -1,140 +1,192 @@
+/* ── Outer header strip ── */
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: var(--z-nav);
-  padding: 0;
-  transition: background 300ms ease, backdrop-filter 300ms ease, box-shadow 300ms ease;
+  display: flex;
+  flex-direction: column;
+  /* transition handled by framer-motion */
 }
 
-.header.scrolled {
-  background: rgba(30, 42, 74, 0.88);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  box-shadow: 0 1px 0 rgba(176, 186, 207, 0.1);
+/* At very top: transparent */
+.atTop .bar {
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
 }
 
-.nav {
+/* After scrolling: subtle frosted strip */
+.scrolled .bar {
+  background: rgba(247, 246, 242, 0.75);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 0.5px solid rgba(162, 179, 140, 0.18);
+  box-shadow: 0 1px 24px rgba(162, 179, 140, 0.10);
+}
+
+/* Row that holds logo + pill + hamburger */
+.bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 48px;
+  padding: 16px 40px;
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
+  transition:
+    background    300ms var(--ease-standard),
+    backdrop-filter 300ms var(--ease-standard),
+    box-shadow    300ms var(--ease-standard);
 }
 
+/* ── Logo ── */
 .logo {
   font-family: var(--font-serif);
   font-size: 18px;
   font-weight: 300;
-  color: var(--text-on-dark);
+  color: var(--navy);
   letter-spacing: -0.01em;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .logo em {
   font-style: italic;
-  color: var(--mist);
+  color: var(--steel);
 }
 
-.links {
+/* ── Pill container ── */
+.pill {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  border: 0.5px solid rgba(162, 179, 140, 0.30);
+  border-radius: var(--radius-pill);
+  padding: 4px 6px;
+  position: relative;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 2px 12px rgba(162, 179, 140, 0.10);
+}
+
+/* ── Liquid-glass active blob ── */
+.activeBlob {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  border-radius: var(--radius-pill);
+  /* Liquid glass effect */
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px) saturate(1.6) brightness(1.05);
+  -webkit-backdrop-filter: blur(8px) saturate(1.6) brightness(1.05);
+  border: 0.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 1px 0   rgba(255,255,255,0.9) inset,
+    0 0   0   0.5px rgba(162,179,140,0.25),
+    0 2px 8px rgba(162, 179, 140, 0.12),
+    0 1px 3px rgba(30,42,74,0.06);
+  pointer-events: none;
+  z-index: 0;
+  will-change: left, width;
+}
+
+/* ── Individual link wrappers ── */
+.linkWrap {
+  position: relative;
+  z-index: 1;
 }
 
 .link {
   font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 400;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--text-dim-dark);
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
-  position: relative;
-  transition: color var(--dur-mid) var(--ease-standard);
+  color: var(--text-secondary);
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
   white-space: nowrap;
+  position: relative;
+  display: block;
+  transition: color var(--dur-mid) var(--ease-standard);
 }
 
 .link:hover {
-  color: var(--text-on-dark);
+  color: var(--navy);
 }
 
 .active {
-  color: var(--text-on-dark);
+  color: var(--navy);
+  font-weight: 500;
 }
 
-.activeLine {
-  position: absolute;
-  bottom: -1px;
-  left: 10px;
-  right: 10px;
-  height: 1px;
-  background: rgba(176, 186, 207, 0.7);
-  border-radius: 1px;
-}
-
-/* Hamburger */
+/* ── Hamburger ── */
 .hamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
   padding: 8px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   cursor: pointer;
   background: none;
   border: none;
+  flex-shrink: 0;
 }
 
-.bar {
+.bar2 {
   display: block;
   width: 22px;
   height: 1.5px;
-  background: var(--text-on-dark);
+  background: var(--navy);
   border-radius: 1px;
   transition: transform 220ms ease, opacity 220ms ease;
   transform-origin: center;
 }
 
 .open1 { transform: translateY(6.5px) rotate(45deg); }
-.open2 { opacity: 0; }
+.open2 { opacity: 0; transform: scaleX(0); }
 .open3 { transform: translateY(-6.5px) rotate(-45deg); }
 
-/* Mobile menu */
+/* ── Mobile menu ── */
 .mobileMenu {
   overflow: hidden;
-  background: rgba(22, 33, 58, 0.96);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 0.5px solid var(--border-on-dark);
+  background: rgba(247, 246, 242, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 0.5px solid rgba(162, 179, 140, 0.20);
+  padding-bottom: 8px;
 }
 
 .mobileLink {
   display: block;
-  padding: 14px 32px;
+  padding: 13px 40px;
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 300;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--text-dim-dark);
-  border-bottom: 0.5px solid rgba(176, 186, 207, 0.08);
+  color: var(--text-secondary);
+  border-bottom: 0.5px solid rgba(162, 179, 140, 0.12);
   transition: color var(--dur-fast) ease, background var(--dur-fast) ease;
 }
 
 .mobileLink:hover {
-  color: var(--text-on-dark);
-  background: rgba(255, 255, 255, 0.04);
+  color: var(--navy);
+  background: rgba(162, 179, 140, 0.08);
 }
 
 .mobileLinkActive {
-  color: var(--text-on-dark);
+  color: var(--navy);
+  font-weight: 500;
 }
 
-@media (max-width: 860px) {
-  .links { display: none; }
-  .hamburger { display: flex; }
-  .nav { padding: 16px 24px; }
+@media (max-width: 900px) {
+  .pill       { display: none; }
+  .hamburger  { display: flex; }
+  .bar        { padding: 14px 24px; }
 }

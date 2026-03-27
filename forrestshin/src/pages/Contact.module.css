@@ -1,7 +1,7 @@
-.contactGrid {
+.layout {
   display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 80px;
+  grid-template-columns: 1fr 300px;
+  gap: 72px;
   align-items: start;
 }
 
@@ -9,13 +9,13 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 24px;
 }
 
 .formRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 18px;
 }
 
 .fieldWrap {
@@ -32,8 +32,6 @@
   text-transform: uppercase;
   color: var(--text-muted);
   display: block;
-  margin-bottom: 2px;
-  will-change: transform, font-size, color;
 }
 
 .input {
@@ -44,57 +42,31 @@
   background: var(--paper);
   border: 0.5px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 11px 14px;
   outline: none;
-  transition:
-    background var(--dur-mid) var(--ease-standard),
-    border-color var(--dur-mid) var(--ease-standard);
   width: 100%;
+  transition: background var(--dur-mid) var(--ease-standard),
+              border-color var(--dur-mid) var(--ease-standard);
 }
+.input::placeholder { color: var(--text-muted); font-weight: 300; }
+.input:hover        { border-color: var(--mist); background: var(--white); }
+.inputFocused       { background: var(--white); border-color: transparent; }
+.inputFilled        { background: var(--white); border-color: var(--border); }
+.textarea           { resize: vertical; min-height: 130px; line-height: 1.7; }
 
-.input::placeholder {
-  color: var(--text-muted);
-  font-weight: 300;
-}
-
-.input:hover {
-  border-color: var(--mist);
-  background: var(--white);
-}
-
-.inputFocused {
-  background: var(--white);
-  border-color: transparent;
-}
-
-.inputFilled {
-  background: var(--white);
-  border-color: var(--border);
-}
-
-.textarea {
-  resize: vertical;
-  min-height: 140px;
-  line-height: 1.7;
-}
-
-/* Spring underline on focus */
 .focusLine {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 0; left: 0; right: 0;
   height: 2px;
   background: linear-gradient(90deg, var(--accent-blue), var(--steel));
   border-radius: 0 0 var(--radius-md) var(--radius-md);
-  transform-origin: left;
   pointer-events: none;
 }
 
 .formFooter {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   flex-wrap: wrap;
 }
 
@@ -105,31 +77,27 @@
   color: var(--text-muted);
 }
 
-/* ── Success state ── */
+/* ── Success ── */
 .successState {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 14px;
   padding: 48px 0;
 }
 
 .successIcon {
-  width: 52px;
-  height: 52px;
+  width: 48px; height: 48px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--navy), var(--accent-blue));
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   color: var(--text-on-dark);
-  font-size: 20px;
-  font-weight: 300;
+  font-size: 18px;
 }
 
 .successTitle {
   font-family: var(--font-serif);
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 300;
   color: var(--navy);
   letter-spacing: -0.02em;
@@ -141,7 +109,7 @@
   font-weight: 300;
   color: var(--text-secondary);
   line-height: 1.7;
-  max-width: 380px;
+  max-width: 360px;
 }
 
 /* ── Sidebar ── */
@@ -150,14 +118,7 @@
   top: 120px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
-}
-
-.sideBlock {
-  background: var(--grad-card);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 24px 20px;
+  gap: 28px;
 }
 
 .sideLabel {
@@ -167,28 +128,57 @@
   text-transform: uppercase;
   color: var(--text-muted);
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
-.socialList {
+/* ── Social cards ── */
+.socialGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.socialCard {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--grad-card);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: border-color var(--dur-mid) ease;
+}
+
+.socialCard:hover {
+  border-color: var(--mist);
+}
+
+.socialIcon {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  border: 0.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+
+.socialText {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0;
 }
 
-.socialItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 0.5px solid var(--border);
-  cursor: pointer;
-  transition: color var(--dur-fast) ease;
-}
-
-.socialItem:last-child { border-bottom: none; }
-
-.socialPlatform {
+.socialLabel {
   font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 400;
@@ -196,22 +186,39 @@
   display: block;
 }
 
-.socialHandle {
+.socialSub {
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.06em;
   color: var(--text-muted);
   display: block;
-  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.socialArrow {
-  font-size: 12px;
+.copiedTag {
+  color: #4CAF7D;
+  font-weight: 500;
+}
+
+.socialCaret {
+  font-family: var(--font-mono);
+  font-size: 10px;
   color: var(--mist);
+  flex-shrink: 0;
   transition: color var(--dur-fast) ease;
 }
 
-.socialItem:hover .socialArrow { color: var(--navy); }
+.socialCard:hover .socialCaret { color: var(--navy); }
+
+/* ── Availability ── */
+.availBlock {
+  padding: 20px;
+  background: var(--grad-card);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+}
 
 .availBadge {
   display: inline-flex;
@@ -223,17 +230,16 @@
   text-transform: uppercase;
   color: var(--slate);
   background: var(--azure);
-  padding: 6px 12px;
+  padding: 5px 12px;
   border-radius: var(--radius-sm);
   margin-bottom: 12px;
 }
 
 .availDot {
-  width: 6px;
-  height: 6px;
+  width: 6px; height: 6px;
   border-radius: 50%;
   background: #4CAF7D;
-  box-shadow: 0 0 0 3px rgba(76, 175, 125, 0.2);
+  box-shadow: 0 0 0 3px rgba(76,175,125,0.2);
   flex-shrink: 0;
 }
 
@@ -246,7 +252,7 @@
 }
 
 @media (max-width: 900px) {
-  .contactGrid { grid-template-columns: 1fr; gap: 48px; }
+  .layout  { grid-template-columns: 1fr; gap: 40px; }
   .sidebar { position: static; }
   .formRow { grid-template-columns: 1fr; }
 }
